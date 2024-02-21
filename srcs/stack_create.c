@@ -6,7 +6,7 @@
 /*   By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 13:24:47 by mrusu             #+#    #+#             */
-/*   Updated: 2024/02/15 15:25:28 by mrusu            ###   ########.fr       */
+/*   Updated: 2024/02/21 14:59:40 by mrusu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ void	create_stack(t_stack **stack_a, char **av)
 	while (av[i])
 	{
 		if (check_av(av[i]))
-			generic_error(stack_a);
+			generic_error(stack_a, av);
 		value = ft_atoil(av[i]);
 		if (value > INT_MAX || value < INT_MIN)
-			generic_error(stack_a);
+			generic_error(stack_a, av);
 		if (check_duplicate (*stack_a, (int)value))
-			generic_error(stack_a);
+			generic_error(stack_a, av);
 		add_element(stack_a, (int)value);
 		i++;
 	}

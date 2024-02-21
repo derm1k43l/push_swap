@@ -6,11 +6,29 @@
 /*   By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 13:24:03 by mrusu             #+#    #+#             */
-/*   Updated: 2024/02/20 17:15:13 by mrusu            ###   ########.fr       */
+/*   Updated: 2024/02/21 17:50:37 by mrusu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
+
+int		copy_split(char **av, char **split_av)
+{
+	int		i;
+
+	i = 1;
+	while (av[i])
+		i++;
+	*split_av = (char *)malloc(i * sizeof(char *));
+	if (!split_av)
+		return (1);
+	i = 1;
+	while (av[i]){
+		split_av[i - 1] = ft_strdup(av[i]);
+		i++;
+	}
+	return (1);
+}
 
 int	main(int ac, char **av)
 {
@@ -20,15 +38,21 @@ int	main(int ac, char **av)
 
 	a = NULL;
 	b = NULL;
+	split_av = NULL;
 	if (ac == 1 || (ac == 2 && !av[1][0]))
 		return (1);
 	else if (ac == 2)
 	{
 		split_av = ft_split2(av[1], 32);
 		create_stack(&a, split_av);
+		free_av(split_av);
 	}
-	else if (ac > 2 && av[1][0] != '\0')
-		create_stack(&a, av + 1);
+	else if (ac > 2 && av[1][0])
+	{
+		copy_split(av, split_av);
+		create_stack(&a, split_av);
+		free_av(split_av);
+	}
 	if (!stack_sorted(a))
 		sort_stack(&a, &b);
 	free_stack(&a);

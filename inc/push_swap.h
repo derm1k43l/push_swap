@@ -6,7 +6,7 @@
 /*   By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 13:13:52 by mrusu             #+#    #+#             */
-/*   Updated: 2024/02/20 13:28:17 by mrusu            ###   ########.fr       */
+/*   Updated: 2024/02/21 14:59:52 by mrusu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,10 @@ void		ss(t_stack **a, t_stack **b, bool print);
 
 // error handeling
 void		free_stack(t_stack **stack);
-void		generic_error(t_stack **a);
+void		generic_error(t_stack **stack, char **av);
 bool		check_av(const char *input);
 bool		check_duplicate(t_stack *stack, int n);
+void		free_av(char **split_av);
 
 // stack utiles
 int			stack_size(t_stack *stack);

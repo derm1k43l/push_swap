@@ -6,7 +6,7 @@
 /*   By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:02:17 by mrusu             #+#    #+#             */
-/*   Updated: 2023/12/12 13:51:37 by mrusu            ###   ########.fr       */
+/*   Updated: 2024/02/21 17:16:56 by mrusu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,20 +100,3 @@ char	*get_next_line(int fd)
 	unprocessed = extract_update(line);
 	return (line);
 }
-
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*line;
-
-// 	fd = open("text.txt", O_RDONLY);
-// 	while (69)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (line == NULL)
-// 			break ;
-// 		printf("%s", line);
-// 		free(line);
-// 	}
-// 	return (0);
-// }

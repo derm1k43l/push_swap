@@ -6,7 +6,7 @@
 #    By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 13:17:32 by mrusu             #+#    #+#              #
-#    Updated: 2024/02/20 17:22:28 by mrusu            ###   ########.fr        #
+#    Updated: 2024/02/20 17:34:29 by mrusu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC = cc
 
 # FLAGS FOR COMPILATION
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror
 
 # PROGRAM NAME
 PROGRAM = push_swap

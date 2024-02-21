@@ -6,7 +6,7 @@
 #    By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/07 19:00:18 by mrusu             #+#    #+#              #
-#    Updated: 2024/02/13 13:51:07 by mrusu            ###   ########.fr        #
+#    Updated: 2024/02/21 14:43:32 by mrusu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC = cc
 
 # FLAGS FOR COMPILATION
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 
 # LIBRARY NAME
 NAME = libft.a
