@@ -6,7 +6,7 @@
 /*   By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 13:13:52 by mrusu             #+#    #+#             */
-/*   Updated: 2024/02/21 14:59:52 by mrusu            ###   ########.fr       */
+/*   Updated: 2024/02/22 16:27:56 by mrusu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ long		ft_atoil(const char *str);
 void		create_stack(t_stack **stack_a, char **av);
 void		add_element(t_stack **stack, int value);
 void		update_status_stack_a(t_stack *a, t_stack *b);
+int			copy_split(char **av, char ***split_av);
 
 // special split
 char		**ft_split2(char const *s, char c);

@@ -6,7 +6,7 @@
 #    By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 13:17:32 by mrusu             #+#    #+#              #
-#    Updated: 2024/02/20 17:34:29 by mrusu            ###   ########.fr        #
+#    Updated: 2024/02/22 16:01:07 by mrusu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = cc
 # FLAGS FOR COMPILATION
 FLAGS = -Wall -Wextra -Werror
 
-# PROGRAM NAME
+# PROGRAM NAMES
 PROGRAM = push_swap
 PROGRAM_CHECKER = checker
 
@@ -31,55 +31,65 @@ HEADER = $(INC_DIR)/push_swap.h
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-# LIST OF SOURCE FILES
-SRCSS_PUSH_SWAP = $(filter-out $(SRC_DIR)/checker.c, $(wildcard $(SRC_DIR)/*.c))
-SRCSS_CHECKER = $(filter-out $(SRC_DIR)/main.c, $(wildcard $(SRC_DIR)/*.c))
+# LIST OF SOURCE FILES FOR PUSH_SWAP
+SRCSS_PUSH_SWAP = $(SRC_DIR)/cmd_push.c $(SRC_DIR)/cmd_rotate.c $(SRC_DIR)/cmd_rev_rotate.c \
+    $(SRC_DIR)/cmd_swap.c $(SRC_DIR)/sort_stacks0.c $(SRC_DIR)/sort_stacks1.c \
+    $(SRC_DIR)/stack_create.c $(SRC_DIR)/stack_update.c $(SRC_DIR)/stack_utils0.c \
+    $(SRC_DIR)/stack_utils1.c $(SRC_DIR)/special_split.c $(SRC_DIR)/main.c \
+    $(SRC_DIR)/errors_handle.c
+
+# LIST OF SOURCE FILES FOR CHECKER
+SRCSS_CHECKER = $(SRC_DIR)/cmd_push.c $(SRC_DIR)/cmd_rotate.c $(SRC_DIR)/cmd_rev_rotate.c \
+    $(SRC_DIR)/cmd_swap.c $(SRC_DIR)/errors_handle.c $(SRC_DIR)/sort_stacks0.c \
+    $(SRC_DIR)/sort_stacks1.c $(SRC_DIR)/stack_create.c $(SRC_DIR)/stack_update.c \
+    $(SRC_DIR)/stack_utils0.c $(SRC_DIR)/stack_utils1.c $(SRC_DIR)/special_split.c \
+    $(SRC_DIR)/checker.c
+
+# OBJECT FILES DIRECTORIES
+OBJ_DIR_PUSH_SWAP = $(OBJ_DIR)/push_swap
+OBJ_DIR_CHECKER = $(OBJ_DIR)/checker
 
 # OBJECT FILES
-OBJS_PUSH_SWAP = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCSS_PUSH_SWAP))
-OBJS_CHECKER = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCSS_CHECKER))
-
-# RULES BONUS
-BONUS_DIR = checker
-BONUS_SRC = $(wildcard $(BONUS_DIR)/*.c)
-BONUS_OBJ = $(BONUS_SRC:$(BONUS_DIR)/%.c=$(OBJ_DIR)/$(BONUS_DIR)/%.o)
+OBJS_PUSH_SWAP = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR_PUSH_SWAP)/%.o, $(SRCSS_PUSH_SWAP))
+OBJS_CHECKER = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR_CHECKER)/%.o, $(SRCSS_CHECKER))
 
 # COLORS
 GREEN = \033[0;32m
 NC = \033[0m
-
-# Bonus checker rule
-bonus: $(LIBFT) $(PROGRAM) $(PROGRAM_CHECKER)
-	@echo "$(GREEN)Build successful$(NC)"
 
 # ALL RULE
 # RULES TO MAKE THE PROGRAM
 all: $(LIBFT) $(PROGRAM)
 	@echo "$(GREEN)Build successful$(NC)"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(FLAGS) -I$(LIBFT_DIR)/$(INC_DIR) -c $< -o $@
-
-$(LIBFT):
-	@$(MAKE) -s -C $(LIBFT_DIR)
-
-$(PROGRAM): $(OBJS_PUSH_SWAP)
+$(PROGRAM): $(LIBFT) $(OBJS_PUSH_SWAP)
 	@echo "$(GREEN)Linking $(PROGRAM)$(NC)"
 	@$(CC) $(FLAGS) -o $(PROGRAM) $(OBJS_PUSH_SWAP) $(LIBFT)
 
-$(PROGRAM_CHECKER): $(OBJS_CHECKER) $(BONUS_OBJ)
-	@echo "$(GREEN)Linking $(PROGRAM_CHECKER)$(NC)"
-	@$(CC) $(FLAGS) -o $(PROGRAM_CHECKER) $(OBJS_CHECKER) $(BONUS_OBJ) $(LIBFT)
+# Bonus checker rule
+bonus: $(LIBFT) $(PROGRAM_CHECKER)
+	@echo "$(GREEN)Build successful$(NC)"
 
-# Dependency for bonus
-$(BONUS_OBJ): $(OBJ_DIR)/$(BONUS_DIR)/%.o: $(BONUS_DIR)/%.c
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "$(GREEN)Object files created: $@$(RESET)"
+$(PROGRAM_CHECKER): $(LIBFT) $(OBJS_CHECKER)
+	@echo "$(GREEN)Linking $(PROGRAM_CHECKER)$(NC)"
+	@$(CC) $(FLAGS) -o $(PROGRAM_CHECKER) $(OBJS_CHECKER) $(LIBFT)
+
+# RULES TO COMPILE OBJECT FILES
+$(OBJ_DIR_PUSH_SWAP)/%.o: $(SRC_DIR)/%.c $(HEADER)
+	@mkdir -p $(OBJ_DIR_PUSH_SWAP)
+	@$(CC) $(FLAGS) -I$(LIBFT_DIR)/$(INC_DIR) -c $< -o $@
+
+$(OBJ_DIR_CHECKER)/%.o: $(SRC_DIR)/%.c $(HEADER)
+	@mkdir -p $(OBJ_DIR_CHECKER)
+	@$(CC) $(FLAGS) -I$(LIBFT_DIR)/$(INC_DIR) -c $< -o $@
+
+# Dependency for libft
+$(LIBFT):
+	@$(MAKE) -s -C $(LIBFT_DIR)
 
 # RULES TO CLEAN EVERYTHING
 clean:
-	rm -f $(OBJS_PUSH_SWAP) $(OBJS_CHECKER) $(BONUS_OBJ)
+	rm -f $(OBJS_PUSH_SWAP) $(OBJS_CHECKER)
 	@$(MAKE) -s -C $(LIBFT_DIR) clean
 
 fclean: clean
@@ -88,6 +98,3 @@ fclean: clean
 
 # RULES FOR RECOMPILATION
 re: fclean all
-
-# PHONY targets
-.PHONY: all clean fclean re

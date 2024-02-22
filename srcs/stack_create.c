@@ -6,7 +6,7 @@
 /*   By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 13:24:47 by mrusu             #+#    #+#             */
-/*   Updated: 2024/02/21 14:59:40 by mrusu            ###   ########.fr       */
+/*   Updated: 2024/02/22 16:43:03 by mrusu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	create_stack(t_stack **stack_a, char **av)
 	int		i;
 
 	i = 0;
+	if (!stack_a || !av || !*av)
+		generic_error(stack_a, av);
 	while (av[i])
 	{
 		if (check_av(av[i]))
@@ -94,4 +96,33 @@ void	update_status_stack_a(t_stack *a, t_stack *b)
 	update_target_a(a, b);
 	update_push_cost(a, b);
 	update_best_match(a);
+}
+
+int	copy_split(char **av, char ***split_av)
+{
+	int	size;
+	int	i;
+	int	j;
+
+	size = 0;
+	i = 1;
+	j = 0;
+	while (av[size + 1])
+		size++;
+	*split_av = (char **)malloc((size + 1) * sizeof(char *));
+	if (!(*split_av))
+		return (1);
+	while (av[i])
+	{
+		(*split_av)[j] = ft_strdup(av[i]);
+		if (!(*split_av)[j])
+		{
+			free_av(*split_av);
+			return (1);
+		}
+		i++;
+		j++;
+	}
+	(*split_av)[j] = NULL;
+	return (0);
 }

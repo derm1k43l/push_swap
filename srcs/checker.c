@@ -6,7 +6,7 @@
 /*   By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 16:03:07 by mrusu             #+#    #+#             */
-/*   Updated: 2024/02/21 17:17:34 by mrusu            ###   ########.fr       */
+/*   Updated: 2024/02/22 16:40:51 by mrusu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	parse_av(t_stack **stack_a, t_stack **stack_b,
 		rrr(stack_a, stack_b, false);
 	else
 		error_av(stack_a, stack_b, split_av, command);
-	free(command);
 }
 
 void	error_av(t_stack **stack_a, t_stack **stack_b, char **split_av, char *command)
@@ -62,6 +61,7 @@ void	process_commands(t_stack **stack_a, t_stack **stack_b, char **split_av)
 		if (!commands)
 			break ;
 		parse_av(stack_a, stack_b, commands, split_av);
+		free(commands);
 	}
 }
 

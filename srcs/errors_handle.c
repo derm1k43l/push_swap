@@ -6,7 +6,7 @@
 /*   By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 13:22:32 by mrusu             #+#    #+#             */
-/*   Updated: 2024/02/21 15:00:15 by mrusu            ###   ########.fr       */
+/*   Updated: 2024/02/22 16:48:05 by mrusu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,14 @@ void	free_av(char **split_av)
 {
 	int	i;
 
-	i = 0;
-	while (split_av[i])
+	if (split_av)
 	{
-		free(split_av[i]);
-		i++;
+		i = 0;
+		while (split_av[i])
+		{
+			free(split_av[i]);
+			i++;
+		}
+		free(split_av);
 	}
-	free(split_av);
 }
