@@ -6,7 +6,7 @@
 /*   By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 13:23:47 by mrusu             #+#    #+#             */
-/*   Updated: 2024/02/15 12:00:13 by mrusu            ###   ########.fr       */
+/*   Updated: 2024/02/26 12:25:25 by mrusu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,14 @@ int	find_max_value(t_stack *stack)
 		stack = stack->next;
 	}
 	return (largest);
+}
+
+void	generic_error2(t_stack **stack_a, char **av)
+{
+	if (stack_a && *stack_a)
+		free_stack(stack_a);
+	if (av && *av)
+		free_av(av);
+	ft_printf("\033[1;31mERROR: Problem with input. Check the arguments..\n");
+	exit(1);
 }

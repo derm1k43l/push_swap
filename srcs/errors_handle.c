@@ -6,7 +6,7 @@
 /*   By: mrusu <mrusu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 13:22:32 by mrusu             #+#    #+#             */
-/*   Updated: 2024/02/22 16:48:05 by mrusu            ###   ########.fr       */
+/*   Updated: 2024/02/23 16:31:34 by mrusu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	generic_error(t_stack **stack, char **av)
 {
 	free_av(av);
 	free_stack(stack);
-	printf("\033[1;31mERROR: Problem with input. Check the arguments.\n");
+	ft_printf("\033[1;31mERROR: Problem with input. Check the arguments.\n");
 	exit (1);
 }
 
